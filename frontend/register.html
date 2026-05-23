@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Premium Travel Register</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./register.css">
+</head>
+
+<body>
+
+  <div class="overlay"></div>
+
+  <header>
+
+    <div class="logo">
+      WanderNest
+    </div>
+
+    <div class="account-btn">
+      Join Now
+    </div>
+
+  </header>
+
+
+  <div class="main-container">
+
+    <!-- LEFT PANEL -->
+
+    <div class="left-panel">
+
+      <h1>
+        Start Your <br>
+        Dream Journey
+      </h1>
+
+      <div class="features">
+
+        <h3>Why Join WanderNest?</h3>
+
+        <ul>
+          <li>Luxury travel experiences</li>
+          <li>Exclusive destination guides</li>
+          <li>Personalized recommendations</li>
+          <li>Easy trip management</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+
+    <!-- REGISTER CARD -->
+
+    <div class="register-card">
+
+      <h2>Create Account</h2>
+
+      <form id="registerForm">
+
+        <label>Name</label>
+
+        <input
+          id="name"
+          type="text"
+          placeholder="Enter your name"
+          autocomplete="name"
+          required
+        >
+
+        <label>Email</label>
+
+        <input
+          id="email"
+          type="email"
+          placeholder="Enter your email"
+          autocomplete="email"
+          required
+        >
+
+        <label>Phone Number</label>
+
+        <input
+          id="phone"
+          type="tel"
+          placeholder="+91 9876543210"
+          autocomplete="tel"
+          required
+        >
+
+        <label>Password</label>
+
+        <input
+          id="password"
+          type="password"
+          placeholder="Enter your password"
+          autocomplete="new-password"
+          required
+        >
+
+        <button type="submit">
+          Create Account
+        </button>
+
+      </form>
+
+      <div class="divider">
+        <span>or Continue with</span>
+      </div>
+
+      <div class="social-icons">
+
+        <div class="icon">G</div>
+
+        <div class="icon"></div>
+
+        <div class="icon">f</div>
+
+      </div>
+
+      <div class="login-link">
+        Already have an account?
+        <a href="./login.html">Login</a>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
+
+  <script>
+    (function(){
+      const form = document.getElementById('registerForm');
+      form.addEventListener('submit', async function(e){
+        e.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const password = document.getElementById('password').value;
+        try {
+          const res = await fetch('http://localhost:5000/api/v1/users/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, phone, password })
+          });
+          const data = await res.json();
+          if (res.ok) {
+            alert(data.message || 'Registration successful');
+            window.location.href = './login.html';
+          } else {
+            alert(data.message || 'Registration failed');
+          }
+        } catch (err) {
+          alert('Network error');
+        }
+      });
+    })();
+  </script>
